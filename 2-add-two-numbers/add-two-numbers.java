@@ -1,3 +1,11 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
 class Solution {
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
         ListNode dummyHead = new ListNode(0);
@@ -5,17 +13,14 @@ class Solution {
         int carry = 0;
 
         while (l1 != null || l2 != null || carry != 0) {
-            // Get values or 0 if list is exhausted
-            int v1 = (l1 != null) ? l1.val : 0;
-            int v2 = (l2 != null) ? l2.val : 0;
-
-            // Calculate sum and carry
-            int sum = v1 + v2 + carry;
+            int x = (l1 != null) ? l1.val : 0;
+            int y = (l2 != null) ? l2.val : 0;
+            
+            int sum = carry + x + y;
             carry = sum / 10;
             curr.next = new ListNode(sum % 10);
-
-            // Move pointers forward
             curr = curr.next;
+
             if (l1 != null) l1 = l1.next;
             if (l2 != null) l2 = l2.next;
         }
@@ -23,3 +28,4 @@ class Solution {
         return dummyHead.next;
     }
 }
+
