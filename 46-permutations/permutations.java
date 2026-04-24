@@ -1,35 +1,29 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 class Solution {
+
     public List<List<Integer>> permute(int[] nums) {
         List<List<Integer>> result = new ArrayList<>();
-        // Use a boolean array to track used elements for O(1) lookup
         backtrack(result, new ArrayList<>(), nums, new boolean[nums.length]);
         return result;
     }
 
-    private void backtrack(List<List<Integer>> result, List<Integer> current, int[] nums, boolean[] used) {
-        // Base case: current permutation is complete
-        if (current.size() == nums.length) {
-            result.add(new ArrayList<>(current));
+    private void backtrack(List<List<Integer>> result, List<Integer> temp, int[] nums, boolean[] used) {
+        if (temp.size() == nums.length) {
+            result.add(new ArrayList<>(temp));
             return;
         }
 
         for (int i = 0; i < nums.length; i++) {
-            // Skip if the number is already in the current path
             if (used[i]) continue;
 
-            // Choose
             used[i] = true;
-            current.add(nums[i]);
+            temp.add(nums[i]);
 
-            // Explore
-            backtrack(result, current, nums, used);
+            backtrack(result, temp, nums, used);
 
-            // Un-choose (backtrack)
+            temp.remove(temp.size() - 1);
             used[i] = false;
-            current.remove(current.size() - 1);
         }
     }
 }
